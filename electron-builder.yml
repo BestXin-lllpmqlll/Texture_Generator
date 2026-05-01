@@ -1,0 +1,19 @@
+appId: com.texturegenerator.app
+productName: Texture Generator
+artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+directories:
+  output: release
+files:
+  - dist/**
+  - dist-electron/**
+  - package.json
+asar: true
+mac:
+  target:
+    - dmg
+win:
+  target:
+    - nsis
+nsis:
+  oneClick: true
+  allowToChangeInstallationDirectory: false

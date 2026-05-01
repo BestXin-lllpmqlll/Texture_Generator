@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 224 25% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 25% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 25% 12%;
+  --primary: 224 70% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 16% 96%;
+  --secondary-foreground: 224 25% 12%;
+  --muted: 220 16% 96%;
+  --muted-foreground: 220 10% 45%;
+  --accent: 221 75% 97%;
+  --accent-foreground: 224 70% 53%;
+  --destructive: 0 78% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 89%;
+  --input: 220 14% 89%;
+  --ring: 224 70% 53%;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: 224 20% 8%;
+  --foreground: 210 20% 96%;
+  --card: 224 16% 11%;
+  --card-foreground: 210 20% 96%;
+  --popover: 224 16% 11%;
+  --popover-foreground: 210 20% 96%;
+  --primary: 214 100% 62%;
+  --primary-foreground: 220 45% 11%;
+  --secondary: 223 14% 16%;
+  --secondary-foreground: 210 20% 96%;
+  --muted: 223 14% 16%;
+  --muted-foreground: 218 10% 64%;
+  --accent: 223 32% 18%;
+  --accent-foreground: 214 100% 72%;
+  --destructive: 0 72% 54%;
+  --destructive-foreground: 210 20% 96%;
+  --border: 223 14% 20%;
+  --input: 223 14% 20%;
+  --ring: 214 100% 62%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+  }
+
+  button,
+  input,
+  select {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-subtle {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+  }
+}
