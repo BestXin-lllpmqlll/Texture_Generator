@@ -6,3 +6,5 @@ dist-electron
 .vscode/*
 !.vscode/extensions.json
 .idea
+release/downloads/*
+!release/downloads/.gitkeep

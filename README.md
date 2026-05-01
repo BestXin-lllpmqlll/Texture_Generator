@@ -48,6 +48,8 @@ npm run dist:win
 - GitHub Releases：公开发布页会提供一键下载链接
 - Releases 页面：[Texture_Generator Releases](https://github.com/BestXin-lllpmqlll/Texture_Generator/releases)
 - 仓库地址：[BestXin-lllpmqlll/Texture_Generator](https://github.com/BestXin-lllpmqlll/Texture_Generator)
+- macOS 安装包：[Texture-Generator-0.1.2-mac-arm64.dmg](https://github.com/BestXin-lllpmqlll/Texture_Generator/releases/download/v0.1.2/Texture-Generator-0.1.2-mac-arm64.dmg)
+- Windows 安装包：[Texture-Generator-0.1.2-win-x64.exe](https://github.com/BestXin-lllpmqlll/Texture_Generator/releases/download/v0.1.2/Texture-Generator-0.1.2-win-x64.exe)
 
 发布成功后，可从仓库右侧的 Releases 页面直接下载：
 
