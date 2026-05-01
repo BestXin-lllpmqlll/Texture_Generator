@@ -1,6 +1,6 @@
 {
   "name": "texture-generator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "A desktop tool that generates random texture/array images from a base image and element set.",
   "author": "Texture Generator",
