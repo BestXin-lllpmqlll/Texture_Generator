@@ -46,6 +46,8 @@ npm run dist:win
 
 - 仓库目录：`release/`
 - GitHub Releases：公开发布页会提供一键下载链接
+- Releases 页面：[Texture_Generator Releases](https://github.com/BestXin-lllpmqlll/Texture_Generator/releases)
+- 仓库地址：[BestXin-lllpmqlll/Texture_Generator](https://github.com/BestXin-lllpmqlll/Texture_Generator)
 
 发布成功后，可从仓库右侧的 Releases 页面直接下载：
 

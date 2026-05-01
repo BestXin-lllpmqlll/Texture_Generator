@@ -4,8 +4,17 @@
   "private": true,
   "description": "A desktop tool that generates random texture/array images from a base image and element set.",
   "author": "Texture Generator",
+  "license": "MIT",
   "main": "dist-electron/main.cjs",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BestXin-lllpmqlll/Texture_Generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BestXin-lllpmqlll/Texture_Generator/issues"
+  },
+  "homepage": "https://github.com/BestXin-lllpmqlll/Texture_Generator",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
