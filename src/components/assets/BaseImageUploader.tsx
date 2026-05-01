@@ -15,8 +15,8 @@ export function BaseImageUploader({ baseAsset, disabled, onUpload, onClear }: Ba
     <div className="space-y-3">
       <AssetDropzone
         title="底图"
-        description="支持 PNG / JPEG / WEBP，作为整张纹理的基础画布。"
-        accept="image/png,image/jpeg,image/webp"
+        description="支持 PNG / JPEG / WEBP / SVG，作为整张纹理的基础画布。"
+        accept="image/png,image/jpeg,image/webp,image/svg+xml"
         disabled={disabled}
         onFiles={onUpload}
       />

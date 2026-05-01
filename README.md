@@ -21,7 +21,7 @@ A desktop texture / array generator built for design production workflows.
 
 `Texture Generator` 是一个基于 `Electron + Vite + React + TypeScript + Canvas` 的跨平台桌面应用，用来快速生成纹理、贴图阵列和素材铺排结果。
 
-你可以上传一张底图作为画布，再批量导入多个元素素材，通过密度、尺寸、旋转和随机种子等参数实时生成排布预览，并导出为 `PNG`、`JPEG`、`SVG` 文件。
+你可以上传一张底图作为画布，再批量导入多个元素素材，通过密度、尺寸、元素间距、边缘间距、旋转和随机种子等参数实时生成排布预览，并导出为 `PNG`、`JPEG`、`SVG` 文件。
 
 这个项目适合：
 
@@ -35,17 +35,20 @@ A desktop texture / array generator built for design production workflows.
 - 实时预览：参数变更后以防抖方式刷新画布，兼顾流畅度与性能
 - 拖拽导入：支持拖拽或点击上传底图与多个元素素材
 - 随机可复现：支持随机种子控制和一键重排，方便复用同一排布逻辑
-- 高质量导出：支持 `PNG`、`JPEG`、`SVG` 三种格式
+- 精细排布：支持元素间距与边缘间距控制，可快速得到更规整或更自由的铺排效果
+- 智能导出：支持 `PNG`、`JPEG`、`SVG` 三种格式，并按素材类型自动切换可用导出能力
 - 桌面原生体验：通过 Electron 调用系统保存对话框，导出路径更符合桌面软件习惯
 - 可发布安装包：已配置 `electron-builder` 与 GitHub Actions，支持 macOS / Windows 分发
 
 ### 功能特性
 
-- 底图上传：支持 `PNG`、`JPEG`、`WEBP`
+- 底图上传：支持 `PNG`、`JPEG`、`WEBP`、`SVG`
 - 元素上传：支持 `PNG`、`JPEG`、`WEBP`、`SVG`，可多选批量导入
 - 参数控制：
   - 密度
   - 基础尺寸
+  - 元素间距
+  - 边缘间距
   - 尺寸随机度
   - 基础角度
   - 旋转随机度
@@ -58,7 +61,16 @@ A desktop texture / array generator built for design production workflows.
 - 导出能力：
   - `PNG`
   - `JPEG`
-  - `SVG`（以 `<image>` 方式嵌入素材）
+  - `SVG` 真矢量导出，仅当底图和全部元素素材都是 `SVG` 时可用
+
+### 最新更新
+
+- 新增 `元素间距` 滑块：
+  正值会阻止元素彼此重叠，负值则允许元素有意压叠。
+- 新增 `边缘间距` 滑块：
+  负值允许元素越过画布边缘并最多保留约一半可见，`0` 时刚好贴边，正值时会与边缘保持安全距离。
+- 升级 `SVG` 导出逻辑：
+  当底图和所有元素都是 `SVG` 时，可导出真正的矢量结构；只要混入任意位图素材，`SVG` 按钮就会自动置灰并给出提示。
 
 ### 为什么这个工具实用
 
@@ -135,6 +147,7 @@ git push origin v0.1.2
 发布页：
 
 - [GitHub Releases](https://github.com/BestXin-lllpmqlll/Texture_Generator/releases)
+- [Changelog](./CHANGELOG.md)
 
 ### 项目结构
 
@@ -160,7 +173,7 @@ git push origin v0.1.2
 
 #### 2. SVG 导出是纯矢量吗？
 
-当前 SVG 导出会把底图和元素以 `<image>` 方式嵌入 SVG 中，保留整体结构，但素材本身仍然是图像资源。
+当底图和所有元素素材都是 `SVG` 时，导出结果是纯矢量结构；如果任意素材是位图，界面会自动禁用 `SVG` 导出，仅保留位图格式。
 
 #### 3. 如果本地安装依赖失败怎么办？
 
@@ -189,7 +202,7 @@ MIT
 
 `Texture Generator` is a cross-platform desktop app built with `Electron + Vite + React + TypeScript + Canvas` for generating texture layouts, repeated patterns, and randomized element arrangements.
 
-You can upload one base image as the canvas, import multiple element assets in batch, tweak parameters such as density, size, rotation, and random seed, and export the result as `PNG`, `JPEG`, or `SVG`.
+You can upload one base image as the canvas, import multiple element assets in batch, tweak parameters such as density, size, element spacing, edge margin, rotation, and random seed, and export the result as `PNG`, `JPEG`, or `SVG`.
 
 This project is a good fit for:
 
@@ -203,18 +216,21 @@ This project is a good fit for:
 - Real-time preview with debounced rendering for smoother interactions
 - Drag-and-drop asset import for both the base image and element images
 - Reproducible randomness with seed control and reshuffle support
-- Multi-format export: `PNG`, `JPEG`, and `SVG`
+- Fine layout control with element spacing and edge margin sliders
+- Smart export capability that enables true vector SVG only when all imported assets are SVG
 - Native desktop save flow powered by Electron system dialogs
 - Release-ready packaging pipeline for macOS and Windows
 
 ### Features
 
-- Base image input: `PNG`, `JPEG`, `WEBP`
+- Base image input: `PNG`, `JPEG`, `WEBP`, `SVG`
 - Element input: `PNG`, `JPEG`, `WEBP`, `SVG`
 - Batch import for multiple element assets
 - Parameter controls:
   - density
   - base size
+  - element spacing
+  - edge margin
   - size randomness
   - base angle
   - rotation randomness
@@ -227,7 +243,16 @@ This project is a good fit for:
 - Export formats:
   - `PNG`
   - `JPEG`
-  - `SVG` with embedded `<image>` assets
+  - true vector `SVG` export when every imported asset is SVG
+
+### Latest Updates
+
+- Added an `element spacing` slider:
+  positive values prevent overlap, while negative values allow intentional overlap.
+- Added an `edge margin` slider:
+  negative values let elements cross the border until about half remains visible, `0` keeps them tangent to the edge, and positive values keep them away from the canvas boundary.
+- Upgraded SVG export:
+  when the base asset and all elements are SVG, the app exports a true vector SVG; if any raster asset is present, the `SVG` option is disabled with a clear hint.
 
 ### Why It Is Useful
 
@@ -297,8 +322,8 @@ The repository already includes a GitHub Actions release workflow:
 Example:
 
 ```bash
-git tag v0.1.2
-git push origin v0.1.2
+git tag v0.1.3
+git push origin v0.1.3
 ```
 
 Releases:
@@ -329,7 +354,7 @@ A desktop app provides a more reliable local file workflow and integrates nicely
 
 #### 2. Is SVG export fully vector-based?
 
-Not entirely. The exported SVG preserves the scene structure, but the base image and elements are embedded as `<image>` resources.
+Yes, but only when the base asset and all element assets are SVG files. If any raster asset is included, the SVG option is disabled and only raster exports remain available.
 
 #### 3. What if dependency installation fails locally?
 

@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
 import { exportSvgString } from '@/renderer/svgExporter';
 import { renderScene } from '@/renderer/canvasRenderer';
 import type { ExportFormat, LoadedAsset, PlacedItem } from '@/renderer/types';
@@ -17,11 +18,27 @@ export function ExportBar({ baseAsset, elements, placements }: ExportBarProps) {
   const [scale, setScale] = useState(2);
   const [status, setStatus] = useState('');
   const elementsById = useMemo(() => new Map(elements.map((item) => [item.id, item])), [elements]);
+  const canExportVector = Boolean(
+    baseAsset &&
+      baseAsset.sourceType === 'svg' &&
+      elements.every((item) => item.sourceType === 'svg'),
+  );
+  const vectorBlockedReason = '仅当底图和所有元素素材都是 SVG 时，才支持导出真正的矢量 SVG。';
 
   const canExport = Boolean(baseAsset);
 
+  useEffect(() => {
+    if (format === 'svg' && !canExportVector) {
+      setFormat('png');
+    }
+  }, [canExportVector, format]);
+
   const handleExport = async () => {
     if (!baseAsset) return;
+    if (format === 'svg' && !canExportVector) {
+      setStatus(vectorBlockedReason);
+      return;
+    }
     const filename = `texture-export.${format === 'jpeg' ? 'jpg' : format}`;
 
     try {
@@ -92,15 +109,30 @@ export function ExportBar({ baseAsset, elements, placements }: ExportBarProps) {
       <div className="grid grid-cols-2 gap-3">
         <label className="space-y-2 text-ui-sm">
           <span className="font-medium">格式</span>
-          <select
-            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-ui-sm"
-            value={format}
-            onChange={(event) => setFormat(event.target.value as ExportFormat)}
-          >
-            <option value="png">PNG</option>
-            <option value="jpeg">JPEG</option>
-            <option value="svg">SVG</option>
-          </select>
+          <div className="grid grid-cols-3 gap-2">
+            {(['png', 'jpeg', 'svg'] as ExportFormat[]).map((item) => {
+              const disabled = item === 'svg' && !canExportVector;
+              const title = disabled ? vectorBlockedReason : `导出为 ${item.toUpperCase()}`;
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  title={title}
+                  disabled={disabled}
+                  onClick={() => setFormat(item)}
+                  className={cn(
+                    'h-10 rounded-xl border px-3 text-ui-sm font-medium transition',
+                    format === item
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-input bg-background text-foreground',
+                    disabled && 'cursor-not-allowed border-border bg-muted text-muted-foreground opacity-50',
+                  )}
+                >
+                  {item.toUpperCase()}
+                </button>
+              );
+            })}
+          </div>
         </label>
         <label className="space-y-2 text-ui-sm">
           <span className="font-medium">倍率</span>
@@ -120,6 +152,11 @@ export function ExportBar({ baseAsset, elements, placements }: ExportBarProps) {
         <Download className="h-4 w-4" />
         导出文件
       </Button>
+      {!canExportVector ? (
+        <p className="text-ui-xs text-amber-600 dark:text-amber-400">{vectorBlockedReason}</p>
+      ) : (
+        <p className="text-ui-xs text-emerald-600 dark:text-emerald-400">当前素材均为 SVG，可导出真正的矢量图。</p>
+      )}
       <p className="text-ui-xs text-muted-foreground">{status || '将使用系统保存对话框导出到本地文件。'}</p>
     </div>
   );

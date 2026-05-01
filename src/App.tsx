@@ -156,6 +156,26 @@ export default function App() {
                   format={(value) => `${value.toFixed(2)}x`}
                 />
                 <SliderField
+                  label="元素间距"
+                  hint="正值时尽量避免元素重叠并保留间隔，负值时允许元素彼此压叠。"
+                  min={-120}
+                  max={120}
+                  step={1}
+                  value={params.spacing}
+                  onChange={(value) => setParam('spacing', value)}
+                  format={(value) => `${Math.round(value)}px`}
+                />
+                <SliderField
+                  label="边缘间距"
+                  hint="负值时元素可越过边缘且最多显示一半，0 时刚好贴边，正值时会与边缘保持距离。"
+                  min={-200}
+                  max={200}
+                  step={1}
+                  value={params.edgeMargin}
+                  onChange={(value) => setParam('edgeMargin', value)}
+                  format={(value) => `${Math.round(value)}px`}
+                />
+                <SliderField
                   label="尺寸随机度"
                   hint="0 表示所有元素同尺寸，1 表示最大随机波动。"
                   min={0}
@@ -228,6 +248,8 @@ export default function App() {
               <CardContent className="space-y-2 text-ui-sm text-muted-foreground">
                 <InfoLine icon={<Gauge className="h-4 w-4" />} text={`底图：${baseAsset ? baseAsset.name : '未加载'}`} />
                 <InfoLine icon={<Layers3 className="h-4 w-4" />} text={`元素：${elements.length} 个`} />
+                <InfoLine icon={<Gauge className="h-4 w-4" />} text={`元素间距：${Math.round(params.spacing)}px`} />
+                <InfoLine icon={<Gauge className="h-4 w-4" />} text={`边缘间距：${Math.round(params.edgeMargin)}px`} />
                 <InfoLine icon={<Sparkles className="h-4 w-4" />} text={`随机种子：${params.seed}`} />
               </CardContent>
             </Card>

@@ -6,11 +6,15 @@ export type LoadedAsset = {
   width: number;
   height: number;
   mimeType: string;
+  sourceType: 'svg' | 'raster';
+  rawText?: string;
 };
 
 export type Params = {
   density: number;
   baseSize: number;
+  spacing: number;
+  edgeMargin: number;
   sizeRandomness: number;
   baseAngle: number;
   rotationRandomness: number;

@@ -8,3 +8,6 @@ dist-electron
 .idea
 release/downloads/*
 !release/downloads/.gitkeep
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts

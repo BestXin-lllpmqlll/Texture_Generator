@@ -4,6 +4,8 @@ import type { Params } from '@/renderer/types';
 export const defaultParams: Params = {
   density: 260,
   baseSize: 0.35,
+  spacing: 0,
+  edgeMargin: 0,
   sizeRandomness: 0.3,
   baseAngle: 0,
   rotationRandomness: 25,

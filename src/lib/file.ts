@@ -9,6 +9,15 @@ export async function readFileAsDataUrl(file: File) {
   });
 }
 
+export async function readFileAsText(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error ?? new Error('Failed to read file as text.'));
+    reader.readAsText(file);
+  });
+}
+
 async function createBitmapFromDataUrl(dataUrl: string) {
   const image = new Image();
   image.src = dataUrl;
@@ -24,6 +33,8 @@ async function createBitmapFromDataUrl(dataUrl: string) {
 
 export async function loadAssetFromFile(file: File): Promise<LoadedAsset> {
   const dataUrl = await readFileAsDataUrl(file);
+  const isSvg = file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg');
+  const rawText = isSvg ? await readFileAsText(file) : undefined;
   let bitmap: ImageBitmap;
 
   try {
@@ -39,7 +50,9 @@ export async function loadAssetFromFile(file: File): Promise<LoadedAsset> {
     bitmap,
     width: bitmap.width,
     height: bitmap.height,
-    mimeType: file.type || 'image/png',
+    mimeType: file.type || (isSvg ? 'image/svg+xml' : 'image/png'),
+    sourceType: isSvg ? 'svg' : 'raster',
+    rawText,
   };
 }
 
