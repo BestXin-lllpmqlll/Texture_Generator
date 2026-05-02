@@ -65,6 +65,10 @@ A desktop texture / array generator built for design production workflows.
 
 ### 最新更新
 
+- 参数实时刷新：
+  调整滑块或输入数值时，画布会立即更新，不再等待防抖延迟。
+- 开发环境更宽松：
+  当 `5173` 端口已被占用时，Vite 开发服务允许自动切换到其他可用端口。
 - 新增 `元素间距` 滑块：
   正值会阻止元素彼此重叠，负值则允许元素有意压叠。
 - 新增 `边缘间距` 滑块：
@@ -247,6 +251,10 @@ This project is a good fit for:
 
 ### Latest Updates
 
+- Real-time parameter preview:
+  the canvas now refreshes immediately while sliders and numeric values are being adjusted.
+- More flexible dev server startup:
+  when port `5173` is occupied, Vite can now fall back to another available port automatically.
 - Added an `element spacing` slider:
   positive values prevent overlap, while negative values allow intentional overlap.
 - Added an `edge margin` slider:

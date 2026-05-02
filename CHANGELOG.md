@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## v0.1.4
+
+### Changed
+
+- Updated the preview pipeline so parameter adjustments now refresh the canvas immediately instead of waiting for a debounce delay.
+- Updated the development server config to allow automatic port fallback when `5173` is already occupied.
+
+### Improved
+
+- Improved interaction feedback while dragging sliders or editing numeric values, making layout tuning feel more direct and responsive.
+
 ## v0.1.3
 
 ### Added

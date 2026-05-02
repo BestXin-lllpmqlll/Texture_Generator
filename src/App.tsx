@@ -11,7 +11,6 @@ import { SliderField } from '@/components/controls/SliderField';
 import { ExportBar } from '@/components/export/ExportBar';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import { generateLayout } from '@/renderer/layout';
 import { useAssetsStore } from '@/store/useAssetsStore';
 import { useParamsStore } from '@/store/useParamsStore';
@@ -23,7 +22,6 @@ export default function App() {
     useAssetsStore();
   const { params, setParam, reshuffle } = useParamsStore();
   const { theme, toggleTheme } = useThemeStore();
-  const debouncedParams = useDebouncedValue(params, 150);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -35,9 +33,9 @@ export default function App() {
       canvasWidth: baseAsset.width,
       canvasHeight: baseAsset.height,
       elements,
-      params: debouncedParams,
+      params,
     });
-  }, [baseAsset, elements, debouncedParams]);
+  }, [baseAsset, elements, params]);
 
   const baseMeta = baseAsset ? `${baseAsset.width} x ${baseAsset.height}` : '未上传';
   const platform = window.electron?.platform ?? 'web';
@@ -100,7 +98,7 @@ export default function App() {
 
           <footer className="flex items-center justify-between border-t border-border px-6 py-3 text-ui-xs text-muted-foreground">
             <span>{notice}</span>
-            <span>参数修改会在 150ms 防抖后刷新画布</span>
+            <span>参数调整会实时刷新画布</span>
           </footer>
         </main>
 
