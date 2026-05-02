@@ -8,10 +8,15 @@ All notable changes to this project are documented in this file.
 
 - Updated the preview pipeline so parameter adjustments now refresh the canvas immediately instead of waiting for a debounce delay.
 - Updated the development server config to allow automatic port fallback when `5173` is already occupied.
+- Updated the Windows installer to use a guided NSIS flow instead of one-click installation, so users can choose a custom install location during setup.
 
 ### Improved
 
 - Improved interaction feedback while dragging sliders or editing numeric values, making layout tuning feel more direct and responsive.
+
+### Fixed
+
+- Fixed the packaged Windows app startup failure caused by the Electron main-process bundle being emitted with ESM syntax and then loaded as CommonJS by Electron.
 
 ## v0.1.3
 

@@ -15,5 +15,7 @@ win:
   target:
     - nsis
 nsis:
-  oneClick: true
-  allowToChangeInstallationDirectory: false
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  perMachine: false

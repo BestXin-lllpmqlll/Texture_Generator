@@ -4,6 +4,8 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "outDir": ".tsbuild/node",
+    "tsBuildInfoFile": ".tsbuild/tsconfig.node.tsbuildinfo",
     "allowSyntheticDefaultImports": true,
     "strict": true
   },

@@ -5,8 +5,8 @@
   "description": "A desktop tool that generates random texture/array images from a base image and element set.",
   "author": "Texture Generator",
   "license": "MIT",
-  "main": "dist-electron/main.cjs",
-  "type": "module",
+  "main": "dist-electron/main.js",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/BestXin-lllpmqlll/Texture_Generator.git"
